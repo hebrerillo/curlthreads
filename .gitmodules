@@ -1,0 +1,3 @@
+[submodule "cddee"]
+	path = cddee
+	url = https://github.com/hebrerillo/cddee
