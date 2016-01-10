@@ -6,7 +6,7 @@ CDEBUG = -g
 CC     = gcc
 GCC    = gcc
 CFLAGS = -Wall $(CDEBUG) $(LIBINCLUDE)
-LFLAGS =  $(LIBRARIES)
+LFLAGS = -lcurl $(LIBRARIES) -pthread
 
 SRCS_C = main.c curlthread.c
 OBJECTS = $(SRCS_C:.c=.o)
