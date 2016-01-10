@@ -21,6 +21,7 @@ extern "C"
     const char *type; //Type of the request: GET or POST
     const char *params; //Request parameters (only if type is POST)
     char *result; //The result returned by the curl request
+    size_t size; //The size of the result
     CURLcode resCode; //The result code of the curl request
     const char *error; //Error string just in case the request fails
   } curlRequest;
