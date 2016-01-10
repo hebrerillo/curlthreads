@@ -90,3 +90,11 @@ size_t curlCallback(char* ptr, size_t size, size_t nmemb, curlRequest *s)
     return ssize;
 }
 
+void freeCurlRequest(curlRequest *s)
+{
+    if (s != NULL && s->size > 0 && s->result != NULL)
+    {
+        free(s->result);
+    }
+}
+

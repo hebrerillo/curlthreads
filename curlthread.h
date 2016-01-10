@@ -64,6 +64,12 @@ extern "C"
    * @return 
    */
   void *curl_thread_func(void *ptr);
+  
+  /**
+   * Free a curlRequest struct
+   * @param s
+   */
+  void freeCurlRequest(curlRequest *s);
 
 #ifdef	__cplusplus
 }
