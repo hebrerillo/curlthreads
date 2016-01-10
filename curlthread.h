@@ -26,8 +26,14 @@ extern "C"
     const char *error; //Error string just in case the request fails
   } curlRequest;
 
-  
-  
+  /**
+   * Initialize a curl request from a set of params
+   * @param url
+   * @param type
+   * @param params
+   * @return 
+   */
+  curlRequest initCurlRequest(const char *url, const char *type, const char *params);
   
   /**
    * Performs several curl calls, each one running in a separate thread. 

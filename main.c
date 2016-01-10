@@ -5,19 +5,9 @@
 int main(int argc, char** argv)
 {
     
-    curlRequest r1 = {
-        .url = "http://localhost/tests/index.php",
-        .type = "POST",
-        .params = "var=5",
-        .result = NULL
-    };
-    
-    curlRequest r2 = {
-        .url = "http://localhost/tests/index.php?var=4",
-        .type = "POST",
-        .params = "var=5",
-        .result = NULL
-    };
+    curlRequest r1,r2;
+    r1 = initCurlRequest("http://localhost/tests/index.php",NULL,"var=5");
+    r2 = initCurlRequest("http://localhost/tests/index.php?var=4","POST","var=5");
     
     List l;
     init(&l,NULL,NULL);
@@ -31,6 +21,7 @@ int main(int argc, char** argv)
     printf("result 2 = %s\n",r2.result);
     free(r1.result);
     free(r2.result);
+    destroyList(&l);
     
     return (EXIT_SUCCESS);
 }

@@ -1,5 +1,19 @@
 #include "curlthread.h"
 
+
+curlRequest initCurlRequest(const char *url, const char *type, const char *params)
+{
+    curlRequest ret =
+    {
+      .url = url,
+      .type = type,
+      .params = params,
+      .size = 0,
+      .result = NULL
+    };
+    return ret;
+}
+
 int performCurlThreads(List *l)
 {
     int i;
