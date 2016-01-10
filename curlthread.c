@@ -78,7 +78,7 @@ size_t curlCallback(char* ptr, size_t size, size_t nmemb, curlRequest *s)
     size_t ssize = nmemb * size;
 
     s->result = (char*)malloc(ssize + 1);
-
+    s->size = ssize;
     if (s->result == NULL)
     {
         fprintf(stderr, "malloc() failed to allocate memory to s->result\n");
