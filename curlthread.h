@@ -19,6 +19,8 @@ extern "C"
     char *type; //Type of the request: GET or POST
     char *params; //Request parameters (only if type is POST)
     char *result; //The result returned by the curl request
+    CURLcode res; //The result code of the curl request
+    char *error; //Error string just in case the request fails
   } curlRequest;
 
   
