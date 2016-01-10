@@ -13,8 +13,13 @@ OBJECTS = $(SRCS_C:.c=.o)
 	  
 #VPATH = cddee
 
+all: list main
+
 %.o: %.c %.h
 	$(CC) $(CFLAGS) -c $<
+
+list: 
+	$(MAKE) -C $(DIRLIBRARY) list
 
 main: $(OBJECTS)
 	$(CC) -o main  $(OBJECTS) $(LFLAGS)
@@ -22,3 +27,4 @@ main: $(OBJECTS)
 clean:
 	rm *.o
 	rm main
+	$(MAKE) -C $(DIRLIBRARY) clean
