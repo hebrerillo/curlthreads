@@ -22,7 +22,7 @@ int performCurlThreads(List *l)
     {
         return 0;
     }
-
+    curl_global_init(CURL_GLOBAL_ALL);
     pthread_t *threads = (pthread_t*) malloc(sizeof (pthread_t) * l->size);
     ListElement *current = l->head;
 
@@ -43,6 +43,7 @@ int performCurlThreads(List *l)
         i++;
     }
     free(threads);
+    curl_global_cleanup();
     return 1;
 }
 
@@ -52,7 +53,7 @@ void *curl_thread_func(void *ptr)
 
     CURL* curl;
     CURLcode res;
-    curl_global_init(CURL_GLOBAL_ALL);
+    
     curl = curl_easy_init();
 
     curl_easy_setopt(curl, CURLOPT_URL, s->url);
