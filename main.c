@@ -19,10 +19,9 @@ int main(int argc, char** argv)
     
     printf("result 1 = %s\n",r1.result);
     printf("result 2 = %s\n",r2.result);
-    free(r1.result);
-    free(r2.result);
     destroyList(&l);
-    
+    freeCurlRequest(&r1);
+    freeCurlRequest(&r2);
     return (EXIT_SUCCESS);
 }
 

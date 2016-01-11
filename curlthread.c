@@ -24,14 +24,15 @@ int performCurlThreads(List *l)
     }
 
     pthread_t *threads = (pthread_t*) malloc(sizeof (pthread_t) * l->size);
-    ListElement *current;
+    ListElement *current = l->head;
 
     initialListSize = l->size; //saving the list size, as pop(l) will modify the list size
     i = 0;
-    while ((current = pop(l)) != NULL && i < initialListSize)
+    while (current != NULL && i < initialListSize)
     {
         //for each element of the list, create a thread to handle the curl request
         pthread_create(&threads[i], NULL, curl_thread_func, current->data);
+        current = current->next;
         i++;
     }
 
