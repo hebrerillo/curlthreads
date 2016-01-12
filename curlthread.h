@@ -18,7 +18,7 @@ extern "C"
   typedef struct
   {
     const char *url;
-    const char *type; //Type of the request: GET or POST
+    int type; //Type of the request: 0:GET, 1:POST
     const char *params; //Request parameters (only if type is POST)
     char *result; //The result returned by the curl request
     size_t size; //The size of the result
@@ -33,7 +33,7 @@ extern "C"
    * @param params
    * @return 
    */
-  curlRequest initCurlRequest(const char *url, const char *type, const char *params);
+  curlRequest initCurlRequest(const char *url, int type, const char *params);
   
   /**
    * Performs several curl calls, each one running in a separate thread. 

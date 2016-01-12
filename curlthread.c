@@ -1,7 +1,7 @@
 #include "curlthread.h"
 
 
-curlRequest initCurlRequest(const char *url, const char *type, const char *params)
+curlRequest initCurlRequest(const char *url, int type, const char *params)
 {
     curlRequest ret =
     {
@@ -58,6 +58,11 @@ void *curl_thread_func(void *ptr)
     curl_easy_setopt(curl, CURLOPT_URL, s->url);
     curl_easy_setopt(curl, CURLOPT_FAILONERROR, 1);
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, &curlCallback);
+    
+    if(s->type == 1)//POST REQUEST
+    {
+        curl_easy_setopt(curl, CURLOPT_POSTFIELDS, s->params);
+    }
     curl_easy_setopt(curl, CURLOPT_VERBOSE, 0);
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, s);
 

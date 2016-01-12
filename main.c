@@ -6,8 +6,8 @@ int main(int argc, char** argv)
 {
     
     curlRequest r1,r2;
-    r1 = initCurlRequest("http://localhost/tests/index.php",NULL,"var=5");
-    r2 = initCurlRequest("http://localhost/tests/index.php?var=4","POST","var=5");
+    r1 = initCurlRequest("http://localhost/tests/index.php",1,"var=5");
+    r2 = initCurlRequest("http://localhost/tests/index.php",1,"var=15");
     
     List l;
     init(&l,NULL,NULL);
