@@ -17,7 +17,7 @@ curlRequest initCurlRequest(const char *url, const char *type, const char *param
 int performCurlThreads(List *l)
 {
     int i;
-    int initialListSize;
+
     if (l == NULL || l->head == NULL || l->size == 0)//check empty list
     {
         return 0;
@@ -26,9 +26,8 @@ int performCurlThreads(List *l)
     pthread_t *threads = (pthread_t*) malloc(sizeof (pthread_t) * l->size);
     ListElement *current = l->head;
 
-    initialListSize = l->size; //saving the list size, as pop(l) will modify the list size
     i = 0;
-    while (current != NULL && i < initialListSize)
+    while (current != NULL && i < l->size)
     {
         //for each element of the list, create a thread to handle the curl request
         pthread_create(&threads[i], NULL, curl_thread_func, current->data);
@@ -37,7 +36,7 @@ int performCurlThreads(List *l)
     }
 
     i = 0;
-    while (i < initialListSize)
+    while (i < l->size)
     {
         pthread_join(threads[i], NULL);
         i++;
