@@ -15,7 +15,7 @@ extern "C"
    * This struct saves all the information required
    * to perform a curl request
    */
-  typedef struct
+  struct _curlRequest
   {
     const char *url;
     int type; //Type of the request: 0:GET, 1:POST
@@ -24,8 +24,10 @@ extern "C"
     size_t size; //The size of the result
     CURLcode resCode; //The result code of the curl request
     const char *error; //Error string just in case the request fails
-  } curlRequest;
-
+  };
+  
+  typedef struct _curlRequest curlRequest;
+  
   /**
    * Initialize a curl request from a set of params
    * @param url
