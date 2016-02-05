@@ -1,14 +1,15 @@
 #include "curlthread.h"
 
 curlRequest
-initCurlRequest(const char *url, int type, const char *params)
+initCurlRequest(const char *url, int type, const char *params, void (*callback)(curlRequest *request))
 {
     curlRequest ret ={
         .url = url,
         .type = type,
         .params = params,
         .size = 0,
-        .result = NULL
+        .result = NULL,
+        .callback = callback
     };
     return ret;
 }
@@ -74,6 +75,10 @@ curl_thread_func(void *ptr)
         s->resCode = res;
     }
     curl_easy_cleanup(curl);
+    if(s->callback != NULL)//execute the call back for this request
+    {
+        s->callback(s);
+    }
 
     return NULL;
 }

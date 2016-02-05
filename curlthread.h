@@ -24,6 +24,7 @@ extern "C"
         size_t size; //The size of the result
         CURLcode resCode; //The result code of the curl request
         const char *error; //Error string just in case the request fails
+        void (*callback)(struct _curlRequest *request);//function callback to be executed once the curl request has finished
     };
 
     typedef struct _curlRequest curlRequest;
@@ -35,7 +36,7 @@ extern "C"
      * @param params
      * @return 
      */
-    curlRequest initCurlRequest(const char *url, int type, const char *params);
+    curlRequest initCurlRequest(const char *url, int type, const char *params,void (*callback)(curlRequest *request));
 
     /**
      * Performs several curl calls, each one running in a separate thread. 
