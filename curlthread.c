@@ -1,20 +1,20 @@
 #include "curlthread.h"
 
-
-curlRequest initCurlRequest(const char *url, int type, const char *params)
+curlRequest
+initCurlRequest(const char *url, int type, const char *params)
 {
-    curlRequest ret =
-    {
-      .url = url,
-      .type = type,
-      .params = params,
-      .size = 0,
-      .result = NULL
+    curlRequest ret ={
+        .url = url,
+        .type = type,
+        .params = params,
+        .size = 0,
+        .result = NULL
     };
     return ret;
 }
 
-int performCurlThreads(List *l)
+int
+performCurlThreads(List *l)
 {
     int i;
 
@@ -27,7 +27,7 @@ int performCurlThreads(List *l)
     ListElement *current;
     ListIterator it = buildIterator(l);
     i = 0;
-    while ( (current = next(&it)) != NULL && i < l->size)
+    while ((current = next(&it)) != NULL && i < l->size)
     {
         //for each element of the list, create a thread to handle the curl request
         pthread_create(&threads[i], NULL, curl_thread_func, current->data);
@@ -45,20 +45,21 @@ int performCurlThreads(List *l)
     return 1;
 }
 
-void *curl_thread_func(void *ptr)
+void *
+curl_thread_func(void *ptr)
 {
     curlRequest *s = (curlRequest*) ptr;
 
     CURL* curl;
     CURLcode res;
-    
+
     curl = curl_easy_init();
 
     curl_easy_setopt(curl, CURLOPT_URL, s->url);
     curl_easy_setopt(curl, CURLOPT_FAILONERROR, 1);
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, &curlCallback);
-    
-    if(s->type == 1)//POST REQUEST
+
+    if (s->type == 1)//POST REQUEST
     {
         curl_easy_setopt(curl, CURLOPT_POSTFIELDS, s->params);
     }
@@ -77,12 +78,12 @@ void *curl_thread_func(void *ptr)
     return NULL;
 }
 
-
-size_t curlCallback(char* ptr, size_t size, size_t nmemb, curlRequest *s)
+size_t
+curlCallback(char* ptr, size_t size, size_t nmemb, curlRequest *s)
 {
     size_t ssize = nmemb * size;
 
-    s->result = (char*)malloc(ssize + 1);
+    s->result = (char*) malloc(ssize + 1);
     s->size = ssize;
     if (s->result == NULL)
     {
@@ -91,11 +92,12 @@ size_t curlCallback(char* ptr, size_t size, size_t nmemb, curlRequest *s)
     }
     memcpy(s->result, ptr, ssize);
     s->result[ssize] = '\0';
-    
+
     return ssize;
 }
 
-void freeCurlRequest(curlRequest *s)
+void
+freeCurlRequest(curlRequest *s)
 {
     if (s != NULL && s->size > 0 && s->result != NULL)
     {
